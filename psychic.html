@@ -16,15 +16,15 @@
 
         <p id="directions-text">Press any key start playing.</p>
 
-        <p>Chances left: 
+        <p>Chances left:
             <span id="chances-text"></span>
         </p>
 
-        <p>Wins: 
+        <p>Wins:
             <span id="wins-text"></span>
         </p>
 
-        <p>Losses: 
+        <p>Losses:
             <span id="losses-text"></span>
         </p>
 
@@ -34,39 +34,71 @@
     </div>
 
     <script type="text/javascript">
+        $(document).ready(function () {
 
-    $(document).ready(function() {
+            var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
+                "p", "q", "r",
+                "s", "t", "u", "v", "w", "x", "y", "z"
+            ];
 
-        var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
-            "s", "t", "u", "v", "w", "x", "y", "z"];
-
-        var chances = 10;
-        var wins = 0;
-        var losses = 0;
-        var guesses = [];
-
-        $(document).keyup(function(event) {
-            $('#chances-text').text(chances)
-            $('#wins-text').text(wins)
-            $('#losses-text').text(losses)
-            $('guesses-text').text(guesses)
-
-            var computerGuess = computerChoices[Math.floor(Math.random()*computerChoices.lenth)];
-            console.log(computerGuess);
-            var userGuess = event.key.toLowerCase();
-
-
+            var chances = 10;
+            var wins = 0;
+            var losses = 0;
+            var guesses = [];
 
             //Print chances, wins, losses, and guesses so far
-            //user selection on keyup triggers function
-                //computer randomly chooses alphabet letter from array
-                //compare user choice vs computer choice
-                //if computer choice = user choice, add 1 win, reset guesses array, reset chances back to 10, alert victory
-                //if computer choice !== user choice, add user choice to guesses array, subtract one from chances
-                //if chances = 0, add 1 loss, set chances to 10, reset guesses array, alert defeat
-        });
+            $('#chances-text').text(chances);
+            $('#wins-text').text(wins);
+            $('#losses-text').text(losses);
+            $('#guesses-text').text(guesses);
 
-    });
+            //computer randomly chooses alphabet letter from array
+            var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+            console.log(computerGuess);
+
+            function resetGame() {
+                chances = 10;
+                guesses = [];
+                $('#chances-text').text(chances);
+                $('#guesses-text').text(guesses);
+                computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+                console.log(computerGuess);
+            }
+
+            //user selection on keyup triggers function
+            document.onkeyup = function (event) {
+
+                var userGuess = event.key;
+                console.log(userGuess);
+
+                //compare user choice vs computer choice
+
+                    //if computer choice !== user choice, add user choice to guesses array, subtract one from chances
+                    if (userGuess !== computerGuess) {
+                        chances--;
+                        $('#chances-text').text(chances);
+                        guesses.push(userGuess);
+                        $('#guesses-text').text(guesses);
+                    }
+
+                     //if computer choice = user choice, add 1 win, reset guesses array, reset chances back to 10, alert victory
+                    if (userGuess === computerGuess) {
+                        wins++;
+                        alert("You win!");
+                        $('#wins-text').text(wins);
+                        resetGame();
+                    }
+
+                    //if chances = 0, add 1 loss, set chances to 10, reset guesses array, alert defeat
+                    if (chances === 0) {
+                        losses++;
+                        alert("You Lose!");
+                        $('#losses-text').text(losses);
+                        resetGame();
+                    }
+            };
+
+        });
     </script>
 
 </body>
