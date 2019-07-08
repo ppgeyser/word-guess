@@ -36,10 +36,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
-                "p", "q", "r",
-                "s", "t", "u", "v", "w", "x", "y", "z"
-            ];
+            var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
             var chances = 10;
             var wins = 0;
@@ -54,7 +51,7 @@
 
             //computer randomly chooses alphabet letter from array
             var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-            console.log(computerGuess);
+            console.log("Computer guess: " + computerGuess);
 
             function resetGame() {
                 chances = 10;
@@ -62,41 +59,47 @@
                 $('#chances-text').text(chances);
                 $('#guesses-text').text(guesses);
                 computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-                console.log(computerGuess);
+                console.log("Computer guess: " + computerGuess);
             }
 
             //user selection on keyup triggers function
-            document.onkeyup = function (event) {
+            $(document).keyup(function (event) {
 
                 var userGuess = event.key;
-                console.log(userGuess);
+                console.log("User Guess: " + userGuess);
 
-                //compare user choice vs computer choice
+                var alphIndex = $.inArray(userGuess, computerChoices);
+                console.log("Alpbabet Index: " + alphIndex);
 
-                    //if computer choice !== user choice, add user choice to guesses array, subtract one from chances
-                    if (userGuess !== computerGuess) {
-                        chances--;
-                        $('#chances-text').text(chances);
-                        guesses.push(userGuess);
-                        $('#guesses-text').text(guesses);
-                    }
+                var guessIndex = $.inArray(userGuess, guesses);
+                console.log("Guess Index: " + guessIndex);
 
-                     //if computer choice = user choice, add 1 win, reset guesses array, reset chances back to 10, alert victory
-                    if (userGuess === computerGuess) {
-                        wins++;
-                        alert("You win!");
-                        $('#wins-text').text(wins);
-                        resetGame();
-                    }
+                //Compare user and computer choice
 
-                    //if chances = 0, add 1 loss, set chances to 10, reset guesses array, alert defeat
-                    if (chances === 0) {
-                        losses++;
-                        alert("You Lose!");
-                        $('#losses-text').text(losses);
-                        resetGame();
-                    }
-            };
+                //if user chose wrong, choice isn't guesses array, and choice is a legitimate alphabet character, add user choice to guesses array, subtract one from chances
+                if ((userGuess !== computerGuess) && (alphIndex !== -1) && (guessIndex === -1)) {
+                    chances--;
+                    $('#chances-text').text(chances);
+                    guesses.push(userGuess);
+                    $('#guesses-text').text(guesses);
+                }
+
+                //if computer choice = user choice, add 1 win, reset guesses array, reset chances back to 10, alert victory
+                if (userGuess === computerGuess) {
+                    wins++;
+                    alert("You win!");
+                    $('#wins-text').text(wins);
+                    resetGame();
+                }
+
+                //if chances = 0, add 1 loss, set chances to 10, reset guesses array, alert defeat
+                if (chances === 0) {
+                    losses++;
+                    alert("You Lose!");
+                    $('#losses-text').text(losses);
+                    resetGame();
+                }
+            });
 
         });
     </script>
