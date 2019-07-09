@@ -27,20 +27,6 @@ $(document).ready(function () {
             //empty guesses array
             //show content div
 
-        //computer selects random string from computerChoices array
-        //print blanks that correspond to string length of chosen string
-            //insert spaces where applicable. spaces should not count as characters that users must guess
-        
-        //onkeyup function
-            //if letter has not been guessed and is an actual letter
-                //if correct letter
-                    //replace blank with letter
-                    //guessed letter should not be able to be pressed again and count as a choice
-
-                //else if incorrect letter
-                    //-1 from chances
-                    //guessed letter should not be able to be pressed again and count as a choice
-
         //if user fully fills in blanks
             //+1 wins
             //hide content div
@@ -54,6 +40,20 @@ $(document).ready(function () {
             //show idiot sandwich gif and play again button
             //play again button onclick
                 //reset function
+
+        //computer selects random string from computerChoices array
+        //print blanks that correspond to string length of chosen string
+            //insert spaces where applicable. spaces should not count as characters that users must guess
+        
+        //onkeyup function
+            //if letter has not been guessed and is an actual letter
+                //if correct letter
+                    //replace blank with letter
+                    //guessed letter should not be able to be pressed again and count as a choice
+
+                //else if incorrect letter
+                    //-1 from chances
+                    //guessed letter should not be able to be pressed again and count as a choice
       });
     
 });
