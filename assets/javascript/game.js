@@ -21,15 +21,25 @@ $(document).ready(function () {
         var chances = 10;
         var wins = 0;
         var losses = 0;
+        var currentWord = [];
         var guesses = [];
 
         var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
         console.log("Computer guess: " + computerGuess);
 
+        function printBlanks() {
+            currentWord.push(computerGuess);
+        }
+
         $('#chances-text').text(chances);
         $('#wins-text').text(wins);
         $('#losses-text').text(losses);
         $('#guesses-text').text(guesses);
+
+
+
+        //print blanks that correspond to string length of chosen string
+                //insert spaces where applicable. spaces should not count as characters that users must guess
 
         //reset function
             //computer selects random string from computerChoices array
