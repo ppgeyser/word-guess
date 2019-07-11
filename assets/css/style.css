@@ -1,0 +1,11 @@
+body {
+    background-image: url(../images/hells\ kitchen.jpg);
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-size: cover;
+}
+
+.content {
+    margin-top: 20vh;
+    opacity: .9;
+}

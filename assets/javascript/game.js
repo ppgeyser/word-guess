@@ -50,12 +50,12 @@ $(document).ready(function () {
 
         //reset function
         function reset() {
-            computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-            console.log(computerGuess);
             chances = 10;
             currentWordStr = ''
             guesses = [];
             currentWord = [];
+            computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+            console.log(computerGuess);
             printBlanks ();
             $('#guesses-text').text(guesses);
             $('#wins-text').text(wins);
