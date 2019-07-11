@@ -1,6 +1,8 @@
 $(document).ready(function () {
 
     $("#content").hide();
+    $('#defeat').hide();
+    $('#victory').hide();
 
     $("#intro-button").click(function(){
         $("#intro").hide();
@@ -9,13 +11,13 @@ $(document).ready(function () {
         var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
         var computerChoices = [
-            "beef wellington",
-            "herb omelette",
-            "lamb sauce",
-            "lobster tortellini",
-            "toffee pudding",
-            "stuffed pork tenderloin",
-            "english garden salad"
+            "beef-wellington",
+            "herb-omelette",
+            "lamb-sauce",
+            "lobster-tortellini",
+            "toffee-pudding",
+            "stuffed-pork-tenderloin",
+            "english-garden-salad"
             ];
     
         var chances = 10;
@@ -27,51 +29,106 @@ $(document).ready(function () {
         var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
         console.log("Computer guess: " + computerGuess);
 
+        //print blanks that correspond to string length of chosen string
+            //insert spaces where applicable. spaces should not count as characters that users must guess
+
         function printBlanks() {
-            currentWord.push(computerGuess);
+            for (var i = 0; i < computerGuess.length; i++) {
+                currentWord[i] = "_";
+                if (computerGuess[i] === "-") {
+                    currentWord[i] = "-";
+                };
+                $('#currentWord-text').text(currentWord.join(" "));
+            }
         }
 
         $('#chances-text').text(chances);
         $('#wins-text').text(wins);
         $('#losses-text').text(losses);
         $('#guesses-text').text(guesses);
-
-
-
-        //print blanks that correspond to string length of chosen string
-                //insert spaces where applicable. spaces should not count as characters that users must guess
+        printBlanks();
 
         //reset function
-            //computer selects random string from computerChoices array
-            //print blanks that correspond to string length of chosen string
-                //insert spaces where applicable. spaces should not count as characters that users must guess
-            //var chances restored to 10
-            //empty guesses array
-            //show content div
+        function reset() {
+            computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+            console.log(computerGuess);
+            chances = 10;
+            currentWordStr = ''
+            guesses = [];
+            currentWord = [];
+            printBlanks ();
+            $('#guesses-text').text(guesses);
+            $('#wins-text').text(wins);
+            $('#losses-text').text(losses);
+            $('#chances-text').text(chances);
+            $("#content").show();
+        }
 
-        //if user fully fills in blanks
-            //+1 wins
-            //hide content div
-            //show bon apetit gif and play again button
-            //play again button onclick
-                //reset function
-
-        //if user runs out of chances
-            //+1 losses
-            //hide content div
-            //show idiot sandwich gif and play again button
-            //play again button onclick
-                //reset function
-        
         //onkeyup function
-            //if letter has not been guessed and is an actual letter
-                //if correct letter
-                    //replace blank with letter
-                    //guessed letter should not be able to be pressed again and count as a choice
+        $(document).keyup(function (event) {
 
-                //else if incorrect letter
-                    //-1 from chances
-                    //guessed letter should not be able to be pressed again and count as a choice
+            var userGuess = event.key;
+            console.log("User Guess: " + userGuess);
+
+            var alphIndex = $.inArray(userGuess, alphabet);
+            console.log("Alpbabet Index: " + alphIndex);
+
+            var correctIndex = $.inArray(userGuess, computerGuess);
+            console.log("Correct Index: " + correctIndex);
+
+            var guessIndex = $.inArray(userGuess, guesses);
+            console.log("Guess Index: " + guessIndex);
+            
+
+            //if letter does not match, is a real letter, and hasn't already been guessed
+            if ((computerGuess[j] !== userGuess) && (alphIndex !== -1) && (guessIndex === -1) && (correctIndex === -1)) {
+                chances--;
+                $('#chances-text').text(chances);
+                guesses.push(userGuess);
+                $('#guesses-text').text(guesses);
+            }
+
+            //if correct letter
+            for (var j = 0; j < computerGuess.length; j++) {
+                if (computerGuess[j] === userGuess) {
+                     //replace blank with letter
+                    currentWord[j] = userGuess;
+                    $('#currentWord-text').text(currentWord.join(" "));
+                }
+            }
+
+            //if user runs out of chances
+            if (chances === 0) {
+                losses ++;
+                //show idiot sandwich gif and play again button
+                $("#content").hide();
+                $('#defeat').show();
+                //play again button onclick
+                $('#lose-button').on('click', function(){
+                    $('#defeat').hide();
+                    //reset function
+                    reset();
+                })
+            }
+
+            var currentWordStr = currentWord.join("")
+
+            //if user fully fills in blanks
+            if (computerGuess === currentWordStr) {
+                //+1 wins
+                wins++;
+                //hide content div
+                $("#content").hide();
+                //show bon apetit gif and play again button
+                $('#victory').show();
+                //play again button onclick
+                $('#win-button').on('click', function(){
+                    $('#victory').hide();
+                    //reset function
+                    reset();
+                })
+            }
+        });
       });
     
 });

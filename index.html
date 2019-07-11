@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="assets/javascript/game.js"></script>
     <title>Surviving Hell's Kitchen!</title>
@@ -19,7 +17,7 @@
             <h1 class="display-4">Surviving Hell's Kitchen</h1>
 
             <div id="intro">
-                <p class="lead">Today is your first day working for 3-Michelin star chef Gordon Ramsay. Can you survive without being turned into an idiot sandwich?</p>
+                <p class="lead">Today is your first day working for 3-Michelin star chef Gordon Ramsay! Things are already hectic, and the food order ticket printer is now broken. You can only see how many letters make up the words of each food order, but not what the orders are. Can you survive without being turned into an idiot sandwich?</p>
                 <hr class="my-4">
                 <p>Click on this button to begin!</p>
                 <p class="lead">
@@ -28,11 +26,11 @@
             </div>
 
             <div id="content">
-                <p id="directions-text">Press any key start playing.</p>
+                <p>Press any key start playing.</p>
 
-                <p>Current Word:</p>
-
-                <div id="currentWord-text"></div>
+                <p>Current Word: 
+                    <span id="currentWord-text"></span>
+                </p>
 
                 <p>Guesses so far:
                     <span id="guesses-text"></span>
@@ -50,6 +48,20 @@
                     <span id="losses-text"></span>
                 </p>
             </div>
+
+            <div id="defeat">
+                <p>You lost!</p>
+                <img src="assets/images/idiot-sandwich.gif" style="margin-bottom: 25px;">
+                <br>
+                <a id="lose-button" class="btn btn-primary btn-lg" href="#" role="button">Play Again</a>
+            </div>
+
+            <div id="victory">
+                    <p>You won!</p>
+                    <img src="assets/images/giphy.gif" style="margin-bottom: 25px;">
+                    <br>
+                    <a id="win-button" class="btn btn-primary btn-lg" href="#" role="button">Play Again</a>
+                </div>
 
         </div>
     </div>
